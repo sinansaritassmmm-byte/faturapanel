@@ -5,3 +5,5 @@ node_modules/
 .env
 .env.*
 *.log
+prisma/*.db
+prisma/*.db-journal
