@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+model Rate {
+  id          Int     @id @default(autoincrement())
+  code        String
+  forexBuy    Float?
+  forexSell   Float?
+  banknoteBuy Float?
+  banknoteSell Float?
+  date        DateTime
+  createdAt   DateTime @default(now())
+}
+model TaxDeadline {
+  id Int @id @default(autoincrement())
+  period String
+  title String
+  dueFrom DateTime
+  dueTo DateTime
+  createdAt DateTime @default(now())
+}
+model Announcement {
+  id Int @id @default(autoincrement())
+  title String
+  source String
+  published DateTime
+  url String
+  createdAt DateTime @default(now())
+}

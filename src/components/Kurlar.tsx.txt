@@ -1,0 +1,14 @@
+"use client"
+
+export default function Kurlar() {
+  return (
+    <div className="kur-list">
+      <p><strong>USD:</strong> 33,10</p>
+      <p><strong>EUR:</strong> 36,40</p>
+      <p><strong>GBP:</strong> 42,20</p>
+      <p style={{ fontSize: "0.8rem", opacity: 0.7 }}>
+        * Örnek değerler, dinamik kur modülü eklenecek.
+      </p>
+    </div>
+  )
+}
