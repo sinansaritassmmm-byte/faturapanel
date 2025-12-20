@@ -1,56 +1,63 @@
-// src/app/api/tcmb/route.ts
 import { NextResponse } from "next/server";
-
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
-type Fx = {
-  USD?: number;
-  EUR?: number;
-  GBP?: number;
-};
 
 export async function GET() {
   try {
+    // TCMB today.xml
     const res = await fetch("https://www.tcmb.gov.tr/kurlar/today.xml", {
+      // Server-side fetch; caching'i response header ile yöneteceğiz
       cache: "no-store",
-      headers: {
-        "User-Agent": "Mozilla/5.0",
-        "Accept": "application/xml,text/xml;q=0.9,*/*;q=0.8",
-      },
     });
 
     if (!res.ok) {
       return NextResponse.json(
-        { ok: false, error: "TCMB fetch failed", status: res.status },
-        { status: 502 }
+        { ok: false, error: "TCMB yanıt vermedi" },
+        { status: 502, headers: { "Cache-Control": "no-store" } }
       );
     }
 
-    const xmlText = await res.text();
+    const text = await res.text();
 
     const pick = (code: string) => {
-      const re = new RegExp(
-        `<Currency[^>]*CurrencyCode="${code}"[\\s\\S]*?<ForexSelling>([^<]+)</ForexSelling>`,
-        "i"
-      );
-      const m = xmlText.match(re);
-      if (!m?.[1]) return undefined;
-      const n = parseFloat(m[1].replace(",", "."));
-      return Number.isFinite(n) ? n : undefined;
+      // ForexSelling / ForexBuying alanlarını regex ile çekiyoruz (XML parse yerine hızlı ve sağlam)
+      // CurrencyCode="USD" ... <ForexBuying>..</ForexBuying> <ForexSelling>..</ForexSelling>
+      const block = text.match(
+        new RegExp(`CurrencyCode="${code}"[\\s\\S]*?<\\/Currency>`, "m")
+      )?.[0];
+
+      if (!block) return null;
+
+      const buying = block.match(/<ForexBuying>(.*?)<\/ForexBuying>/)?.[1] ?? null;
+      const selling = block.match(/<ForexSelling>(.*?)<\/ForexSelling>/)?.[1] ?? null;
+
+      const toNum = (v: string | null) => {
+        if (!v) return null;
+        const n = parseFloat(v.replace(",", "."));
+        return Number.isFinite(n) ? n : null;
+      };
+
+      return { buying: toNum(buying), selling: toNum(selling) };
     };
 
-    const data: Fx = {
-      USD: pick("USD"),
-      EUR: pick("EUR"),
-      GBP: pick("GBP"),
-    };
+    const currencies = ["USD", "EUR", "GBP", "CHF", "JPY", "SAR", "RUB", "AUD", "CAD", "SEK", "NOK", "DKK", "KWD", "QAR"] as const;
 
-    return NextResponse.json({ ok: true, data }, { status: 200 });
-  } catch (e: any) {
+    const data: Record<string, { buying: number | null; selling: number | null }> = {};
+    for (const c of currencies) {
+      data[c] = pick(c) ?? { buying: null, selling: null };
+    }
+
     return NextResponse.json(
-      { ok: false, error: e?.message || "unknown error" },
-      { status: 500 }
+      { ok: true, data },
+      {
+        headers: {
+          // 30 dk cache + stale revalidate
+          "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=3600",
+        },
+      }
+    );
+  } catch (e) {
+    return NextResponse.json(
+      { ok: false, error: "Sunucu hatası" },
+      { status: 500, headers: { "Cache-Control": "no-store" } }
     );
   }
 }

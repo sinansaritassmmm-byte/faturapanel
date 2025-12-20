@@ -1,38 +1,26 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import "./globals.css";
 
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+
 export const metadata: Metadata = {
-  title: "Sinan Sarıtaş — SMMM | İstanbul Mali Müşavirlik Hizmeti",
+  title: "Sinan Sarıtaş | SMMM",
   description:
-    "Vergi, e-defter, e-fatura, beyanname, defter tasdik, şirket kuruluş ve danışmanlık süreçlerinde profesyonel mali müşavirlik hizmetleri.",
+    "İstanbul Sarıyer’de Serbest Muhasebeci Mali Müşavir Sinan Sarıtaş. Vergi, e-defter, e-fatura, SGK ve danışmanlık hizmetleri.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="tr">
       <body>
-        <header className="site-header">
-          <div className="container header-wrap">
-            <div className="logo">Sinan Sarıtaş — SMMM</div>
-
-            <input id="nav-toggle" type="checkbox" className="nav-toggle" />
-            <label htmlFor="nav-toggle" className="nav-toggle-label">
-              ☰
-            </label>
-
-            <nav>
-              <ul>
-                <li><a href="/">Anasayfa</a></li>
-                <li><a href="/hizmetler">Hizmetler</a></li>
-                <li><a href="/pratik-bilgiler">Pratik Bilgiler</a></li>
-                <li><a href="/iletisim">İletişim</a></li>
-                <li><a href="/kvkk">KVKK</a></li>
-              </ul>
-            </nav>
-          </div>
-        </header>
-
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

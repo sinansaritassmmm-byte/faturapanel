@@ -418,3 +418,67 @@ nav a.active {
   font-weight: 600;
   border-bottom: 2px solid currentColor;
 }
+.fx-marquee {
+  width: 100%;
+  overflow: hidden;
+  background: #111;
+  color: #fff;
+  font-size: 14px;
+}
+
+.fx-track {
+  display: flex;
+  gap: 40px;
+  padding: 8px 0;
+  width: max-content;
+  animation: fx-scroll 30s linear infinite;
+}
+
+.fx-marquee:hover .fx-track {
+  animation-play-state: paused;
+}
+
+@keyframes fx-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+/* ===========================
+   KAYAN DÖVİZ BANDI
+   =========================== */
+.fx-marquee {
+  width: 100%;
+  overflow: hidden;
+  background: #111;
+  color: #fff;
+  font-size: 14px;
+}
+
+.fx-track {
+  display: flex;
+  gap: 40px;
+  padding: 8px 0;
+  width: max-content;
+  animation: fx-scroll 35s linear infinite;
+}
+
+.fx-track span {
+  white-space: nowrap;
+  opacity: 0.95;
+}
+
+.fx-track strong {
+  font-weight: 700;
+}
+
+.fx-marquee:hover .fx-track {
+  animation-play-state: paused;
+}
+
+@keyframes fx-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
