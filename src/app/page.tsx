@@ -199,49 +199,75 @@ export default function Page() {
         {/* ===========================
          *  SEKTÖRLER
          * =========================== */}
-        <section className="section">
-          <div className="container">
-            <h2 className="section-title">Hizmet Verdiğimiz Sektörler</h2>
-            <p className="section-intro">
-              Sektöre özel muhasebe ve mali danışmanlık çözümleri sunuyoruz.
-            </p>
+        {/* SEKTÖRLER */}
+<section className="section" id="sektorler">
+  <div className="container">
+    <h2 className="section-title">Hizmet Verdiğimiz Sektörler</h2>
+    <p className="section-intro">
+      Farklı sektörlerin muhasebe, vergi ve mevzuat ihtiyaçlarına özel çözümler
+      sunuyoruz. Aşağıdaki sektörlerden size uygun olanı seçerek detaylı bilgi
+      alabilirsiniz.
+    </p>
 
-            <div className="grid">
-              <a className="card" href="/sektorler/e-ticaret-muhasebe">
-                <h3>🛒 E-Ticaret</h3>
-                <p>Pazaryeri, komisyon, iade ve e-belge süreçleri</p>
-              </a>
+    <div className="grid">
+      {/* Öncelikli sektörler */}
+      <a href="/sektorler/e-ticaret-muhasebe" className="card">
+        <h3>🛒 E-Ticaret</h3>
+        <p>
+          Pazaryeri, e-ticaret sitesi ve online satış yapan firmalar için
+          e-fatura, KDV ve stok odaklı muhasebe çözümleri.
+        </p>
+      </a>
 
-              <a className="card" href="/sektorler/kargo-kurye-muhasebe">
-                <h3>🚚 Kargo / Kurye</h3>
-                <p>Tahsilat mutabakatı ve araç giderleri</p>
-              </a>
+      <a href="/sektorler/kargo-kurye-muhasebe" className="card">
+        <h3>🚚 Kargo & Kurye</h3>
+        <p>
+          Kurye, dağıtım ve lojistik firmalarına özel gider, araç, SGK ve
+          sözleşme süreçlerinin takibi.
+        </p>
+      </a>
 
-              <a
-                className="card"
-                href="/sektorler/basit-usulden-gercek-usule-gecis"
-              >
-                <h3>🔄 Basit Usul → Gerçek Usul</h3>
-                <p>Geçiş planı ve vergi etkileri</p>
-              </a>
+      <a href="/sektorler/basit-usulden-gercek-usule-gecis" className="card">
+        <h3>📄 Basit Usul → Gerçek Usul</h3>
+        <p>
+          İş hacmi büyüyen esnaflar için gerçek usule geçiş, defter düzeni ve
+          vergi planlaması.
+        </p>
+      </a>
 
-              <a className="card" href="/sektorler/imalat-sanayi-muhasebe">
-                <h3>🏭 İmalat & Sanayi</h3>
-                <p>Maliyet, stok ve üretim muhasebesi</p>
-              </a>
+      {/* Diğer sektörler */}
+      <a href="/sektorler/imalat-sanayi-muhasebe" className="card">
+        <h3>🏭 İmalat & Sanayi</h3>
+        <p>
+          Üretim yapan işletmeler için maliyet, stok, fire ve kapasite odaklı
+          muhasebe çözümleri.
+        </p>
+      </a>
 
-              <a className="card" href="/sektorler/restoran-kafe-muhasebe">
-                <h3>🍽️ Restoran / Kafe</h3>
-                <p>Kasa, POS ve günlük takip</p>
-              </a>
+      <a href="/sektorler/restoran-kafe-muhasebe" className="card">
+        <h3>☕ Restoran & Kafe</h3>
+        <p>
+          Adisyon, POS, personel ve günlük ciro takibi odaklı muhasebe hizmetleri.
+        </p>
+      </a>
 
-              <a className="card" href="/sektorler/serbest-meslek-muhasebe">
-                <h3>👨‍💼 Serbest Meslek</h3>
-                <p>Belge düzeni ve vergi planlama</p>
-              </a>
-            </div>
-          </div>
-        </section>
+      <a href="/sektorler/serbest-meslek-muhasebe" className="card">
+        <h3>👨‍💼 Serbest Meslek</h3>
+        <p>
+          Avukat, doktor, mimar ve serbest çalışanlar için gelir-gider ve vergi
+          takibi.
+        </p>
+      </a>
+    </div>
+
+    <div style={{ textAlign: "center", marginTop: 20 }}>
+      <a href="/sektorler" className="btn btn-outline">
+        Tüm Sektörleri Gör →
+      </a>
+    </div>
+  </div>
+</section>
+
 
         {/* ===========================
          *  HİZMETLER
